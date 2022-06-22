@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 
 import ast
-import io
-import re
-import os
-from setuptools import find_packages, setup  # type: ignore
 import distutils.text_file
+import io
+import os
+import re
+
+from setuptools import find_packages, setup  # type: ignore
 
 EXCLUDE_FROM_PACKAGES = ["contrib", "docs", "tests*"]
 CURDIR = os.path.abspath(os.path.dirname(__file__))
@@ -41,12 +42,12 @@ setup(
     install_requires=distutils.text_file.TextFile(
         filename="./requirements.txt"
     ).readlines(),
-    python_requires=">=3.6",
+    python_requires=">=3.8",
     # license and classifier list:
     # https://pypi.org/pypi?%3Aaction=list_classifiers
     license="License :: OSI Approved :: MIT License",
     classifiers=[
-        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3",
         "Operating System :: MacOS",
         "Operating System :: POSIX :: Linux",
         "Development Status :: 4 - Beta",

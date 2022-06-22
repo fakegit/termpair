@@ -12,19 +12,20 @@ import pty
 import signal
 import ssl
 import sys
-from urllib.parse import urljoin, urlencode
 import webbrowser
-from typing import List, Optional, Callable
-import websockets  # type: ignore
 from math import floor
+from typing import Callable, List, Optional
+from urllib.parse import urlencode, urljoin
+
+import websockets  # type: ignore
+
+from . import encryption, utils
+from .constants import TermPairError, subprotocol_version
 from .Terminal import TerminalId
-from .constants import subprotocol_version, TermPairError
-from . import utils
-from . import encryption
 
 max_read_bytes = 1024 * 2
 ws_queue: asyncio.Queue = asyncio.Queue()
-JS_MAX_SAFE_INTEGER = 2 ** 53 - 1
+JS_MAX_SAFE_INTEGER = 2**53 - 1
 
 
 class AesKeys:
@@ -33,7 +34,7 @@ class AesKeys:
     def __init__(self):
         self.bootstrap_message_count = 0
         self.message_count = 0
-        self.message_count_rotation_required = 2 ** 20
+        self.message_count_rotation_required = 2**20
         self.browser_rotation_buffer_count = self.message_count_rotation_required * 0.1
         self.secret_bootstrap_key = encryption.aes_generate_secret_key()
         self.secret_unix_key = encryption.aes_generate_secret_key()
